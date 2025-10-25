@@ -1,0 +1,75 @@
+# Build pipeline for Level Flight Status web
+
+name: "$(Date:yyyy.MM.dd)$(Rev:.r)"
+
+trigger: none
+
+pool:
+  vmImage: "ubuntu-latest"
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "20.x"
+    displayName: "Install Node.js"
+
+  - task: NpmAuthenticate@0
+    inputs:
+      workingFile: ".npmrc"
+
+  - script: |
+      npm install
+    displayName: "npm install"
+
+  - script: |
+      npm run build
+    displayName: "npm build"
+
+  - task: CopyFiles@2 # Copy built files to staging directory
+    inputs:
+      sourceFolder: "build" # Vite's default output folder. Adjust if you've customized the output directory.
+      targetFolder: "$(buildArtifactStagingDirectory)/build"
+    displayName: "Copy Built Files to Staging Directory"
+
+  - task: CopyFiles@2 # Copy built files to staging directory
+    inputs:
+      sourceFolder: "public" # Vite's default output folder. Adjust if you've customized the output directory.
+      targetFolder: "$(buildArtifactStagingDirectory)/public"
+    displayName: "Copy Built Files to Staging Directory"
+
+  - task: CopyFiles@2 # Copy server.js file to staging directory
+    inputs:
+      sourceFolder: "." # Root of the repo
+      contents: "server.js"
+      targetFolder: "$(buildArtifactStagingDirectory)"
+    displayName: "Copy server.js to Staging Directory"
+
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: "node_modules"
+      contents: "**"
+      targetFolder: "$(buildArtifactStagingDirectory)/node_modules"
+    displayName: "Copy node_modules to Staging Directory"
+
+  - task: CopyFiles@2
+    inputs:
+      sourceFolder: "."
+      contents: "package.json"
+      targetFolder: "$(buildArtifactStagingDirectory)"
+    displayName: "Copy package.json to Staging Directory"
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: "$(buildArtifactStagingDirectory)"
+      includeRootFolder: false
+      archiveType: "zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/flight-status-build-artifact.zip"
+      replaceExistingArchive: true
+    displayName: "Archive files into a zip"
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      pathtoPublish: "$(Build.ArtifactStagingDirectory)/flight-status-build-artifact.zip"
+      artifactName: "flight-status-build-artifact"
+      artifactType: "Container"
+    displayName: "Publish Build Artifact"
