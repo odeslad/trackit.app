@@ -1,12 +1,13 @@
 {
-  "name": "trackit.odeslad.com",
+  "name": "lv-ui-flight-status-web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "npx tsx server/server.ts",
     "build": "vite build && vite build --config vite.config.server.ts && tsc -p tsconfig.json",
-    "serve": "cross-env NODE_ENV=production node build/server/server.js"
+    "serve": "cross-env NODE_ENV=production node build/server/server.js",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",

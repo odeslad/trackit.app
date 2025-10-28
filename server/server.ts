@@ -1,12 +1,14 @@
 import express from "express";
-import { handleRequest } from "../app/entry.server";
+// import { handleRequest } from "../src/entry.server";
 import path from "path";
 import { fileURLToPath } from "url";
+import { ViteDevServer } from "vite";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 
-let viteServer: any;
+let viteServer: ViteDevServer | undefined;
+let handleRequest: (req: express.Request, res: express.Response) => Promise<void>;
 
 if (process.env.NODE_ENV !== "production") {
 
@@ -19,8 +21,14 @@ if (process.env.NODE_ENV !== "production") {
   });
 
   app.use(viteServer.middlewares);
+
+  const mod = await viteServer.ssrLoadModule("/src/entry.server.tsx");
+  handleRequest = mod.handleRequest;
 } else {
   app.use(express.static(path.resolve(__dirname, "../client"), { index: false }));
+
+  const mod = await import("../src/entry.server.js");
+  handleRequest = mod.handleRequest;
 }
 
 app.get("/favicon.ico", (req, res) => {
@@ -49,10 +57,11 @@ app.use(async (req, res, next) => {
   }
 
   try {
+
     await handleRequest(req, res);
   } catch (error) {
     if (viteServer) {
-      viteServer.ssrFixStacktrace(error);
+      viteServer.ssrFixStacktrace(error as Error);
     }
     res.status(500).send("Error interno del servidor");
   }

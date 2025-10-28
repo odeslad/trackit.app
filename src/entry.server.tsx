@@ -1,6 +1,8 @@
+// @ts-expect-error: TS6133
 import React from "react";
 import { renderToString } from "react-dom/server";
 import path from "path";
+import getRawBody from "raw-body";
 import fs from "fs";
 import {
   createStaticHandler,
@@ -17,8 +19,32 @@ export async function handleRequest(
 ): Promise<void> {
   try {
     const handler = createStaticHandler(routes);
-    const request = new Request(`http://${req.headers.host}${req.url}`);
+
+    const request = new Request(`http://${req.headers.host}${req.url}`, {
+      method: req.method,
+      headers: req.headers as HeadersInit,
+      body:
+        req.method !== "GET" && req.method !== "HEAD"
+          ? (await getRawBody(req) as BodyInit) || null
+          : undefined
+    });
+
     const context = (await handler.query(request)) as StaticHandlerContext;
+
+    if (context instanceof Response) {
+      const headers = Object.fromEntries(context.headers.entries());
+      res.status(context.status).set(headers);
+
+      if (context.headers.get("Location")) {
+        // Redirección
+        return res.redirect(context.status, context.headers.get("Location")!);
+      }
+
+      const text = await context.text();
+      res.send(text);
+      return;
+    }
+
     const router = createStaticRouter(handler.dataRoutes, context);
     const appHtml = renderToString(
       <StaticRouterProvider router={router} context={context} />
@@ -31,7 +57,7 @@ export async function handleRequest(
     if (isProd) {
       const manifestPath = path.resolve("build/client/.vite/manifest.json");
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
-      const entry = manifest["app/entry.client.tsx"];
+      const entry = manifest["src/entry.client.tsx"];
 
       if (entry) {
         if (entry.css) {
@@ -51,7 +77,7 @@ export async function handleRequest(
           window.$RefreshSig$ = () => (type) => type;
           window.__vite_plugin_react_preamble_installed__ = true;
         </script>
-        <script type="module" src="/app/entry.client.tsx"></script>
+        <script type="module" src="/src/entry.client.tsx"></script>
       `;
     }
 
