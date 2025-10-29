@@ -9,6 +9,7 @@ export const Welcome = () => {
 
   const data = useLoaderData();
   const message = useActionData();
+
   return (
 
     <div className={style.welcome}>

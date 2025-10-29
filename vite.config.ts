@@ -9,7 +9,7 @@ export default defineConfig({
     manifest: true,
     emptyOutDir: true,
     rollupOptions: {
-      input: "src/entry.client.tsx",
+      input: "src/app/entry.client.tsx",
     },
   },
   resolve: {

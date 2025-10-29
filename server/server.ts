@@ -22,12 +22,12 @@ if (process.env.NODE_ENV !== "production") {
 
   app.use(viteServer.middlewares);
 
-  const mod = await viteServer.ssrLoadModule("/src/entry.server.tsx");
+  const mod = await viteServer.ssrLoadModule("/src/app/entry.server.tsx");
   handleRequest = mod.handleRequest;
 } else {
   app.use(express.static(path.resolve(__dirname, "../client"), { index: false }));
 
-  const mod = await import("../src/entry.server.js");
+  const mod = await import("../src/app/entry.server.js");
   handleRequest = mod.handleRequest;
 }
 

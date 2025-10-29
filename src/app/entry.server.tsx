@@ -57,7 +57,7 @@ export async function handleRequest(
     if (isProd) {
       const manifestPath = path.resolve("build/client/.vite/manifest.json");
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf-8"));
-      const entry = manifest["src/entry.client.tsx"];
+      const entry = manifest["src/app/entry.client.tsx"];
 
       if (entry) {
         if (entry.css) {
@@ -77,7 +77,7 @@ export async function handleRequest(
           window.$RefreshSig$ = () => (type) => type;
           window.__vite_plugin_react_preamble_installed__ = true;
         </script>
-        <script type="module" src="/src/entry.client.tsx"></script>
+        <script type="module" src="/src/app/entry.client.tsx"></script>
       `;
     }
 
