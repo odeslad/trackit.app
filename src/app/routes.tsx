@@ -2,8 +2,8 @@
 import React from "react";
 
 import { type RouteObject } from "react-router-dom";
-import { Main } from "./components/main";
-import { MainOperations } from "../modules/operations/components/main";
+import { Main } from "~/components/main";
+import { MainOperations } from "@/operations/components/main";
 
 export const routes: RouteObject[] = [
   {
