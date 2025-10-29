@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  align-items: bottom;
+  justify-content: space-between;
+  font-size: 24px;
+  width: 100%;
+  max-width: 1200px;
+  height: 60px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.data {
+  margin-top: 24px;
+}
+
+.footer {
+  margin-top: auto;
+  padding: 16px;
+  border-top: 1px solid #ccc;
+}

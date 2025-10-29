@@ -3,7 +3,17 @@ import style from './style.module.css';
 export const MainOperations = () => {
   return (
     <>
-      <h1 className={style.title}>Main Operations</h1>
+      <div className={style.header}>
+        <h4>Operations</h4>
+      </div>
+      <div className={style.form}>
+
+      </div>
+      <div className={style.data}>
+
+      </div>
+      <div className={style.footer}>
+      </div>
     </>
   );
 }
