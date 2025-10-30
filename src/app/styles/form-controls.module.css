@@ -1,0 +1,41 @@
+.label {
+  font-weight: 400;
+  margin-bottom: 4px;
+  font-size: 16px;
+  display: block;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.x-large {
+  width: 100%;
+}
+
+.large {
+  width: 75%;
+}
+
+.middle {
+  width: 50%;
+}
+
+.small {
+  width: 25%;
+}
+
+.x-small {
+  width: 12.5%;
+}
+
+.fill {
+  flex: 1;
+}

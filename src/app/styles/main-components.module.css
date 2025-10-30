@@ -11,9 +11,12 @@
 }
 
 .form {
+  padding-top: 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .data {
@@ -24,4 +27,14 @@
   margin-top: auto;
   padding: 16px;
   border-top: 1px solid #ccc;
+}
+
+.row {
+  padding-bottom: 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: end;
+  width: 100%;
+  gap: 16px;
 }
