@@ -4,6 +4,7 @@ import style from './style.module.css';
 import { Button } from '#/components/button';
 import { Separator } from '#/components/separator';
 import { Select } from '#/components/select';
+import { InputDate } from '#/components/input-date';
 
 
 type Operation = {
@@ -47,10 +48,11 @@ export const MainOperations = () => {
       </div>
       <div className={style.form}>
         <div className={style.row}>
-          <InputText
+          <InputDate
             label="Fecha"
             name="date"
             value={form.date}
+            placeholder="dd/mm/yyyy"
             className='x-small'
             onChange={handleInputChange} />
           <Select

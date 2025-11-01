@@ -66,8 +66,8 @@ export const Select = (props: SelectProps) => {
         readOnly
         onClick={handleArrowClick}
       />
-      <div className={style.selectArrow} onClick={handleArrowClick}><ChevronDown size={16} /></div>
-      <div className={`${style.selectOptions} ${!open ? style.selectOptionsHidden : ""}`}>
+      <div className={style.icon} onClick={handleArrowClick}><ChevronDown size={16} /></div>
+      <div className={`${style.selectMenu} ${!open ? style.selectMenuHidden : ""}`}>
         {Object.entries(props.options).map(([key, label]) => (
           <div
             key={key}
