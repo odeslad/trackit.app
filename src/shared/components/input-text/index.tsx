@@ -3,9 +3,9 @@ import style from './style.module.css';
 
 interface InputTextProps {
   label: string;
+  name: string;
   value: string;
   className?: string;
-  name: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
