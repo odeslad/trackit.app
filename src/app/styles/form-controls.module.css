@@ -39,3 +39,20 @@
 .fill {
   flex: 1;
 }
+
+@media (max-width: 920px) {
+
+  /* Si quieres que los campos ocupen todo el ancho en móvil */
+  .x-large,
+  .large,
+  .middle,
+  .small,
+  .x-small {
+    width: 100% !important;
+  }
+
+  /* Opcional: asegurar el contenedor al 100% */
+  .container {
+    width: 100%;
+  }
+}
