@@ -13,7 +13,8 @@ interface InputDateProps {
 }
 
 const formatClassName = (className?: string) => {
-  return `${className ? style[className] : ''} ${style.container} ${style.dateContent}`;
+  console.log(className);
+  return `${className ? style[className] : 'gfd'} ${style.container} ${style.dateContent}`;
 }
 
 export const InputDate = (props: InputDateProps) => {
@@ -108,11 +109,12 @@ export const InputDate = (props: InputDateProps) => {
 
   return (
     <div ref={containerRef} className={formatClassName(props.className)}>
-      <label className={style.label}>{props.label}</label>
+      <label htmlFor={props.name} className={style.label}>{props.label}</label>
       <input
+        type="text"
         ref={inputRef}
         className={style.date}
-        type="text"
+        id={props.name}
         name={props.name}
         value={props.value ? new Date(props.value).toLocaleDateString('es-ES') : ''}
         placeholder={props.placeholder}

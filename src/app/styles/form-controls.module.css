@@ -16,7 +16,7 @@
   flex-direction: column;
 }
 
-.x-large {
+.xlarge {
   width: 100%;
 }
 
@@ -32,7 +32,7 @@
   width: 25%;
 }
 
-.x-small {
+.xsmall {
   width: 12.5%;
 }
 

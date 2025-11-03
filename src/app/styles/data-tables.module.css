@@ -1,0 +1,23 @@
+.xlarge {
+  width: 100%;
+}
+
+.large {
+  width: 75%;
+}
+
+.middle {
+  width: 50%;
+}
+
+.small {
+  width: 25%;
+}
+
+.xsmall {
+  width: 12.5%;
+}
+
+.fill {
+  flex: 1;
+}

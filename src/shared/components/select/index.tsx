@@ -55,11 +55,12 @@ export const Select = (props: SelectProps) => {
 
   return (
     <div ref={containerRef} className={formatClassName(props.className)}>
-      <label className={style.label}>{props.label}</label>
+      <label htmlFor={props.name} className={style.label}>{props.label}</label>
       <input
-        ref={inputRef}
-        className={style.select}
         type="text"
+        ref={inputRef}
+            className={style.select}
+        id={props.name}
         name={props.name}
         value={props.value}
         placeholder={props.placeholder}

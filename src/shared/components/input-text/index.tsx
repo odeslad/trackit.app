@@ -16,8 +16,14 @@ const formatClassName = (className?: string) => {
 export const InputText = (props: InputTextProps) => {
   return (
     <div className={formatClassName(props.className)}>
-      <label className={style.label}>{props.label}</label>
-      <input className={style.input} type="text" name={props.name} value={props.value} onChange={props.onChange} />
+      <label htmlFor={props.name} className={style.label}>{props.label}</label>
+      <input 
+        type="text" 
+        className={style.input} 
+        id={props.name}
+        name={props.name} 
+        value={props.value} 
+        onChange={props.onChange} />
     </div>
   );
 };
